@@ -134,6 +134,14 @@ describe('Router:Node', function() {
       expect(await runAll('get', '/users/1.json')).toEqual({ id: '1', format: 'json' })
     })
 
+    it('should be able to turn off including routes with format', async function() {
+      router.setIncludeRouteWithFormat(false)
+      router.get('/p/:id', params => Promise.resolve(params))
+      expect(await runAll('get', '/p/theBalm-Mary-Lou-Manizer-Luminizer-8.5g')).toEqual({
+        id: 'theBalm-Mary-Lou-Manizer-Luminizer-8.5g'
+      })
+    })
+
     it('should merge the result of multiple handlers', async function() {
       router.get(
         '/c/:id',

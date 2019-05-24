@@ -82,6 +82,8 @@ export default class Router extends EventEmitter {
     }
   ]
 
+  includeRouteWithFormat = true
+
   constructor() {
     super()
 
@@ -99,9 +101,20 @@ export default class Router extends EventEmitter {
   }
 
   pushRoute(method, path, handlers) {
-    this.routes.push({ path: new Route(path + '.:format'), method, handlers })
+    if (this.includeRouteWithFormat) {
+      this.routes.push({ path: new Route(path + '.:format'), method, handlers })
+    }
     this.routes.push({ path: new Route(path), method, handlers })
     return this
+  }
+
+  /**
+   * Setting for including route with extension format automatically
+   * @default true
+   * @param {Boolean} value
+   */
+  setIncludeRouteWithFormat(value) {
+    this.includeRouteWithFormat = value
   }
 
   /**
