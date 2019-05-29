@@ -87,8 +87,7 @@ module.exports = {
       eslintConfig = require('./eslint-client'),
       prefetchRampUpTime = -5000, // compensate for the 5 minute buffer for deployments so that there is no ramp up time
       allowPrefetchThrottling = false,
-      serveSSRFromCache = false,
-      openBrowser = true
+      serveSSRFromCache = false
     } = {}
   ) {
     const webpack = require(path.join(root, 'node_modules', 'webpack'))
@@ -103,6 +102,8 @@ module.exports = {
         'getStatsInDev'
       )
     }
+
+    const openBrowser = (process.env.OPEN_BROWSER || 'true').toLowerCase() === 'true'
 
     return ({ url = 'http://localhost:8080' } = {}) =>
       Object.assign(createClientConfig(root, { entries, alias }), {
