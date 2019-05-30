@@ -28,7 +28,7 @@ jobs:
       # deploy to production
       - run: 
           command: |
-            if [ $CIRCLE_BRANCH = 'master' ]; then
+            if [ -n "$CIRCLE_TAG" ]; then
               yarn upgrade-docs
             fi
 
